@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SlideViewerStateMachine : MonoBehaviour {
 
-    public string slideLocation;//where do the slides live NOTE: USE ABSOLUTE PATH
-    public string videoLocation;//where do the videos live NOTE: USE ABSOLUTE PATH
+    public string slideAbsPath;//where do the slides live NOTE: USE ABSOLUTE PATH
+    public string videoAbsPath;//where do the videos live NOTE: USE ABSOLUTE PATH
     private SlideViewerStates currentState;
 
     public GameObject screen;
 
-    private SlideController sController;
+    private ViewerController viewerController;
 
 //            |--------------
 //            v             |
@@ -20,8 +20,8 @@ public class SlideViewerStateMachine : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         this.currentState = SlideViewerStates.Intro;
-        if (slideLocation != null)
-            sController = new SlideController(this.slideLocation, screen);
+        if (slideAbsPath != null && videoAbsPath != null)
+            viewerController = new ViewerController(this.slideAbsPath, this.videoAbsPath , screen);
 	}
 	
 	// Update is called once per frame
@@ -36,13 +36,24 @@ public class SlideViewerStateMachine : MonoBehaviour {
                 break;
             case SlideViewerStates.Idle:
                 currentState = SlideViewerStates.Slides;
+                viewerController.incrementSlide();
+                viewerController.Update();
                 break;
             case SlideViewerStates.Slides:
-                sController.Update();
+                viewerController.incrementSlide();
+                viewerController.Update();
                 System.Threading.Thread.Sleep(100);
-                sController.incrementSlide();
+                ;
+                if (viewerController.slidesCompleted())
+                {
+                    viewerController.toggleActiveController();
+                    currentState = SlideViewerStates.Video;
+                }
                 break;
             case SlideViewerStates.Video:
+
+                viewerController.play();
+
                 break;
         }
 		
