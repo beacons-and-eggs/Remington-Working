@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Video;
 public class ViewerController {
 
     private SlideController sController;
@@ -9,13 +9,23 @@ public class ViewerController {
     private enum ActiveController { slide, video };
     private ActiveController aController;
 
-
-    public ViewerController(string slideAbsPath, string videoAbsPath, GameObject screen)
+    /**
+     * 
+     * Viewer Controller constructor
+     * 
+     * @param slides List<Sprite> "the sprite objects for the slides"
+     * 
+     * @param video VideoPlayer "The video object preloaded with video" 
+     * 
+     * @param screen GameObject "the 2d plane that hosts the slides"
+     * 
+     **/
+    public ViewerController(List<Sprite> slides, VideoPlayer video, GameObject screen)
     {
         this.aController = ActiveController.slide;
 
-        this.sController = new SlideController(slideAbsPath, screen);
-        this.vController = new VideoController(videoAbsPath, screen);
+        this.sController = new SlideController(slides, screen);
+        this.vController = new VideoController(video);
         this.sController.setEnabled(true);
         this.vController.setEnabled(false);
     }
@@ -23,14 +33,12 @@ public class ViewerController {
 
     public void Update()
     {
+       //video player doesn't require a manual update
         if(this.aController == ActiveController.slide)
         {
             this.sController.Update();
         }
-        else
-        {
 
-        }
     }
 
     public void toggleActiveController()

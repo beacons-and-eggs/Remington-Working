@@ -6,41 +6,41 @@ using UnityEngine.Video;
 public class VideoController {
     private string videoAbsPath;//where the video lives
 
-    private VideoPlayer vid;//the canvas the video will be displayed
+    private VideoPlayer video;//the canvas the video will be displayed
     private GameObject plane;
 
-    public VideoController(string videoAbsPath, GameObject screen)
+    public VideoController(VideoPlayer video)
     {
-        this.videoAbsPath = videoAbsPath;
+        this.video = video;
         this.plane = GameObject.Find("VideoPlane");
-        this.vid = screen.GetComponentInChildren<VideoPlayer>();
+      
     }
 
     public void play()
     {
-        this.vid.Play();
+        this.video.Play();
     }
 
     public void pause()
     {
-        this.vid.Pause();
+        this.video.Pause();
     }
 
     public void restart()
     {
-        this.vid.frame = 0;
+        this.video.frame = 0;
     }
 
     public void setEnabled(bool set)
     {
-        this.vid.enabled = set;
+        this.video.enabled = set;
         plane.SetActive(set);
     }
 
     public void toggleEnabled()
     {
-        this.vid.enabled = !this.vid.enabled;
-        plane.SetActive(vid.enabled);
+        this.video.enabled = !this.video.enabled;
+        plane.SetActive(video.enabled);
 
     }
 }
