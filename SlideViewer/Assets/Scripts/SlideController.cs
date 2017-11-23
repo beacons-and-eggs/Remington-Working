@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,9 +19,9 @@ using UnityEngine.UI;
 public class SlideController
 {
 
-    private string slideAbsPath; // the general location of the slides
     private int slideState = 0; //the current slide
-    private List<string>  slides; //the location and names of the slides
+
+    private List<Sprite> sprites; 
 
 
     private bool needToUpdateImage = true;
@@ -29,13 +29,11 @@ public class SlideController
     
     private Image canvasImage;
     
-    public SlideController(string slideAbsPath, GameObject screen)
+    public SlideController(List<Sprite> slides, GameObject screen)
     {
-        this.slideAbsPath = slideAbsPath;
+        this.sprites = slides;
         this.canvasImage = screen.GetComponentInChildren<Image>();
 
-        findSlides(); //get all files in the slideAbsPath directory
-        scrubSlides(); //only hold on to png or jpg
      
     }
 	
@@ -44,22 +42,27 @@ public class SlideController
         //only update if the image has recently been changed
         if (enabled && needToUpdateImage)
         {
-            //find where this image is
-            //Debug.Log(this.slideState + " " + (this.slides.Count-1)+ " " + this.slides[this.slideState]);
-            string loc =   this.slides[this.slideState];
-
+            Debug.Log("state: " + this.slideState);
             //create a new shell for Spirte
-            Sprite s = new Sprite();
-            Texture2D st = LoadTexture(loc);
+            Sprite s = this.sprites[this.slideState];
+            Texture2D st = s.texture;
             //ensure that the file actually existed
             if (st == null)
                 return;
             //create a basic sprite
+
             s = Sprite.Create(st, new Rect(0,0, st.width, st.height), new Vector2(0,0), 100f );
 
             //resize the image object to the picture size if necessary
             canvasImage.GetComponent<RectTransform>().sizeDelta = new Vector2(st.width, st.height);
-            canvasImage.sprite = s;
+            if (this.sprites == null)
+                canvasImage.sprite = s;
+            else
+            {
+
+                canvasImage.sprite = this.sprites[this.slideState];
+                //this.sprites.RemoveAt(0);
+            }
 
             needToUpdateImage = false;
         }
@@ -68,7 +71,7 @@ public class SlideController
 
     public bool slidesCompleted()
     {
-        if (slideState + 1 == this.slides.Count)
+        if (this.slideState == this.sprites.Count - 1)
             return true;
         return false;
     }
@@ -77,7 +80,7 @@ public class SlideController
     {
         if (this.enabled)
         {
-            if (slideState + 1 < this.slides.Count)
+            if (slideState + 1 < this.sprites.Count)
             {
                 needToUpdateImage = true;
                 slideState++;
@@ -122,47 +125,6 @@ public class SlideController
 
 
 
-        //returns a Texture2D if the file exists, null if it doesn't
-    private Texture2D LoadTexture(string filePath)
-    {
-        Texture2D tex;
-        byte[] fileData;
-        //does the file exist
-        if (File.Exists(filePath))
-        {
-            //get the raw data
-            fileData = File.ReadAllBytes(filePath);
-            //the initial size doesnt matter because it will get resized
-            tex = new Texture2D(2, 2);
-            //returns true if the file is valid
-            if (tex.LoadImage(fileData))
-            {
-                return tex;
-            }
-        }
-        //return null if it doesnt exist
-        return null;
-    }
 
 
-    private bool findSlides()
-    {
-        this.slides = new List<string>(Directory.GetFiles(this.slideAbsPath));
-        return slides.Count > 0;
-    }
-
-    private bool scrubSlides()
-    {
-        for (int i = 0; i < slides.Count; i++)
-        {
-            if (!(Path.GetExtension(slides[i]).Equals(".png") || Path.GetExtension(slides[i]).Equals(".jpg") || Path.GetExtension(slides[i]).Equals(".PNG")))
-            {
-                slides.RemoveAt(i);
-                continue;
-            }
-        }
-        this.slides.Sort();
-
-        return this.slides.Count > 0;
-    }
 }
