@@ -6,7 +6,7 @@ using System.IO;
 
 using ImageAndVideoPicker;
 
-public class ViewerController : MonoBehaviour {
+public class ViewerController {
 
     private SlideController sController;
     private VideoController vController;
@@ -52,6 +52,7 @@ public class ViewerController : MonoBehaviour {
      **/
     public ViewerController(List<Sprite> slides, VideoPlayer video, GameObject screen)
     {
+        Debug.Log("Standard ViewerController Initializer");
         this.aController = ActiveController.slide;
 
         this.sController = new SlideController(slides, screen);
@@ -60,6 +61,7 @@ public class ViewerController : MonoBehaviour {
         this.videoBuilt = true;
         this.sController.setEnabled(true);
         this.vController.setEnabled(false);
+        Debug.Log("Finished Standard ViewerController CTOR");
 
 
     }

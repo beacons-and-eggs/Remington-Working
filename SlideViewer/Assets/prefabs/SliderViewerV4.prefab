@@ -203,8 +203,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slideDirectory: 
   videoPath: 
+  useFileChooser: 0
   video: {fileID: 328822594358073954}
   screen: {fileID: 1480585422819704}
+  slideSet:
+  - {fileID: 21300000, guid: d456420d77bbaab40802934cb7ea7e41, type: 3}
+  - {fileID: 21300000, guid: 8ebbcc241778e60498548499d4e5bca4, type: 3}
+  - {fileID: 21300000, guid: 8c8b88ae200f4ac408284cbee83c04f6, type: 3}
+  - {fileID: 21300000, guid: 1c7e7b6faaf9b1e409c5b65b0583b354, type: 3}
+  - {fileID: 21300000, guid: ba78c6ae2f8ba3842a84155d6202e78b, type: 3}
+  - {fileID: 21300000, guid: 72030b4321c29ac4797bb78786718480, type: 3}
+  - {fileID: 21300000, guid: af7a8c42384006243bae5ef77eb5a706, type: 3}
+  - {fileID: 21300000, guid: 9f626d5af5adc214d9dfe93d06cd1d44, type: 3}
+  - {fileID: 21300000, guid: efc1a75535bc2c54f9d5b481671f6400, type: 3}
+  - {fileID: 21300000, guid: b693f8a2c5cd94f46828ad4fb0d47c74, type: 3}
+  - {fileID: 21300000, guid: be6c4babf6d3b5042afe70b4c4126329, type: 3}
+  - {fileID: 21300000, guid: 99ce2640071e33d43a8a19ae4954615b, type: 3}
+  - {fileID: 21300000, guid: 6f5cc2e444748304a96b3db412125291, type: 3}
+  - {fileID: 21300000, guid: d51155c9ee8af334aa418ecf1437fe50, type: 3}
+  - {fileID: 21300000, guid: d924718ec9ff8654ab841816ac1feb6d, type: 3}
 --- !u!114 &114504911637978796
 MonoBehaviour:
   m_ObjectHideFlags: 1

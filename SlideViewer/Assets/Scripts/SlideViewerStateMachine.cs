@@ -61,7 +61,7 @@ public class SlideViewerStateMachine : MonoBehaviour
     void Update()
     {
 
-        if (isBuilt)
+        if (viewerController.isBuilt())
         {
             isBuilt = viewerController.buildUpdate();
         }
@@ -79,6 +79,7 @@ public class SlideViewerStateMachine : MonoBehaviour
                 viewerController.Update();
                 break;
             case SlideViewerStates.Slides:
+                Debug.Log("incrementing slides");
                 viewerController.incrementSlide();
                 viewerController.Update();
                 System.Threading.Thread.Sleep(100);

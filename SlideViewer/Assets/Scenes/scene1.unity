@@ -289,10 +289,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1420977335336090, guid: c5fb2b591a9f83746966759aa5bfc2c9, type: 2}
-      propertyPath: m_Name
-      value: SliderViewerV4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5fb2b591a9f83746966759aa5bfc2c9, type: 2}
   m_IsPrefabParent: 0
